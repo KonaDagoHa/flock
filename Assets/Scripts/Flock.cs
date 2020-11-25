@@ -45,4 +45,40 @@ public class Flock : MonoBehaviour
             agents.Add(newAgent);
         }
     }
+
+    private void Update()
+    {
+        foreach (FlockAgent agent in agents)
+        {
+            List<Transform> context = GetNearbyObjects(agent);
+            agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count / 6f);
+
+            /*
+            Vector2 move = behavior.CalculateMove(agent, context, this);
+            move *= driveFactor;
+            if (move.sqrMagnitude > squareMaxSpeed)
+            {
+                move = move.normalized * maxSpeed;
+            }
+            
+            agent.Move(move);
+            */
+        }
+    }
+
+    private List<Transform> GetNearbyObjects(FlockAgent agent)
+    {
+        List<Transform> context = new List<Transform>();
+        Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighborRadius);
+        foreach (Collider2D c in contextColliders)
+        {
+            // if collider does not belong to current agent
+            if (c != agent.AgentCollider)
+            {
+                // add collider's transform to context
+                context.Add(c.transform);
+            }
+        }
+        return context;
+    }
 }
