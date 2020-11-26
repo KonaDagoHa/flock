@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Flock/Behavior/Avoidance")]
-public class AvoidanceBehavior : FlockBehavior
+public class AvoidanceBehavior : FilteredFlockBehavior
 {
     /// <summary>
     /// Find average vector of all vectors from agent to neighbors in agent's context within flock's avoidance radius and return that vector
@@ -16,7 +16,9 @@ public class AvoidanceBehavior : FlockBehavior
         // add all neighbor positions together and find average
         Vector2 avoidanceMove = Vector2.zero;
 
-        foreach (Transform item in context)
+        List<Transform> filteredContext = (filter == null) ? context : filter.Filter(agent, context);
+
+        foreach (Transform item in filteredContext)
         {
             // if the distance between neighbor and agent is less than flock's SquareAvoidanceRadius
             if (Vector2.SqrMagnitude(item.position - agent.transform.position) < flock.SquareAvoidanceRadius)

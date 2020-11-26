@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0f029a6451f4f0abd8393fef036b06, type: 3}
-  m_Name: Alignment
+  m_Script: {fileID: 11500000, guid: f981333b5158b4893a1e33f00f93ae0c, type: 3}
+  m_Name: Obstacle Avoidance
   m_EditorClassIdentifier: 
-  filter: {fileID: 11400000, guid: 06c9418ce10e449ffb5c65bb30ef0e6e, type: 2}
+  filter: {fileID: 11400000, guid: 0c0ad5c01904b4e19b57a65021c1ba52, type: 2}

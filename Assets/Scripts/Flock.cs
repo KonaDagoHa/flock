@@ -29,6 +29,7 @@ public class Flock : MonoBehaviour
 
     private void Start()
     {
+
         squareMaxSpeed = maxSpeed * maxSpeed;
         squareNeighborRadius = neighborRadius * neighborRadius;
         squareAvoidanceRadius = squareNeighborRadius * avoidanceRadiusMultiplier * avoidanceRadiusMultiplier;
@@ -51,7 +52,8 @@ public class Flock : MonoBehaviour
         foreach (FlockAgent agent in agents)
         {
             List<Transform> context = GetNearbyObjects(agent);
-            agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count / 6f);
+
+            agent.AgentRenderer.color = Color.Lerp(Color.white, agent.BaseColor, context.Count / 8f);
 
             // calculate move velocity vector
             Vector2 move = behavior.CalculateMove(agent, context, this);

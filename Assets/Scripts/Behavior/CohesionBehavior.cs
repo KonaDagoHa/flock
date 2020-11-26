@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Flock/Behavior/Cohesion")]
-public class CohesionBehavior : FlockBehavior
+public class CohesionBehavior : FilteredFlockBehavior
 {
     /// <summary>
     /// Find average position of all neighbors in agent's context and return velocity vector to move agent there
@@ -15,7 +15,10 @@ public class CohesionBehavior : FlockBehavior
 
         // add all neighbor positions together and find average
         Vector2 cohesionMove = Vector2.zero;
-        foreach (Transform item in context)
+
+        List<Transform> filteredContext = (filter == null) ? context : filter.Filter(agent, context);
+
+        foreach (Transform item in filteredContext)
         {
             cohesionMove += (Vector2)item.position;
         }
